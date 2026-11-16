@@ -81,6 +81,12 @@
   // Remember that they got this far, so the thank-you page opens for them.
   try { localStorage.setItem('rig_playbook_book', String(Date.now())); } catch (e) {}
   window.RIG_THANKS = THANKS;
+  // When the GHL calendar reports a finished booking, go to this funnel's own thank-you page
+  // (the calendar is shared with the book-a-call funnel, so its own redirect points elsewhere).
+  addEventListener('message', function (e) {
+    var d = e.data, name = Array.isArray(d) ? d[0] : (d && (d.type || d.event || d));
+    if (typeof name === 'string' && /booking-complete|appointment-booked/i.test(name)) location.href = THANKS;
+  });
 })();
 </script>
 </body>
