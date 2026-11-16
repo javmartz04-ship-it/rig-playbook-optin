@@ -70,11 +70,9 @@ h2{font-size:clamp(34px,4.4vw,56px);text-wrap:balance}
 .hero h1 .e{display:block;font-size:1em;line-height:1.08;margin-top:6px;color:var(--gold);text-wrap:balance}
 .hero .sub{margin:20px 0 22px;max-width:560px;font-size:clamp(18px,1.45vw,21px);line-height:1.55;color:var(--on-d)}
 .hero .sub b{color:var(--white);font-weight:700}
-.why{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:600px;margin:0 0 30px;border-top:1px solid var(--line-d);border-bottom:1px solid var(--line-d)}
-.why li{padding:16px 18px 16px 0}
-.why li+li{padding-left:18px;border-left:1px solid var(--line-d)}
-.why b{display:block;font-size:clamp(26px,2.4vw,34px);font-weight:800;font-stretch:80%;line-height:1;color:var(--gold);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
-.why span{display:block;margin-top:7px;font-size:13.5px;line-height:1.35;color:var(--on-d)}
+.why{list-style:none;max-width:600px;margin:0 0 28px}
+.why li{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;padding:5px 0;font-size:17px;line-height:1.4;color:var(--white);font-weight:500}
+.why li svg{width:18px;height:18px;margin-top:3px;color:var(--gold)}
 .proof{display:flex;align-items:center;gap:18px;margin-top:24px;padding-top:22px;border-top:1px solid var(--line-d);max-width:560px}
 .faces{display:flex;flex:none}
 .faces img{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:50% 22%;border:2px solid var(--black);margin-left:-12px;background:#222}
@@ -135,7 +133,8 @@ h2{font-size:clamp(34px,4.4vw,56px);text-wrap:balance}
 .eq .res{background:var(--gold);color:#111;border-color:var(--gold)}
 
 /* ---------- MECHANISM ---------- */
-.mech{background:var(--ivory)}
+.mech{background:var(--paper)}
+.prob{background:var(--ivory)}
 .m-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:60px;align-items:end;margin-bottom:64px}
 .m-grid{display:block}
 .parts{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:64px}
@@ -314,10 +313,8 @@ footer img{width:110px;height:auto}
   .h-grid{grid-template-columns:1fr;gap:10px;text-align:center}
   .tag{margin-bottom:18px;font-size:10.5px;letter-spacing:.12em}
   .hero .sub{margin:16px auto 18px}
-  .why{margin:0 auto 22px;text-align:left}
-  .why li{padding:12px 10px 12px 0}
-  .why li+li{padding-left:10px}
-  .why span{font-size:12px}
+  .why{margin:0 auto 22px;text-align:left;max-width:340px}
+  .why li{font-size:15.5px;padding:4px 0}
   .hero .cta{display:flex;flex-direction:column;align-items:center}
   .micro{justify-content:center;text-align:left}
   .hero .micro{font-size:13px}
@@ -385,11 +382,11 @@ footer img{width:110px;height:auto}
       <div>
         <p class="tag"><em>Free</em>The Medicare Marketing Machine Playbook</p>
         <h1><span class="ln"><span class="call">Medicare Agents:</span></span><span class="ln"><span class="call">Want To Hit $250K A&nbsp;Year?</span></span><span class="ln"><span class="e">Start With This Free Playbook.</span></span></h1>
-        <p class="sub">Johnny Brock&rsquo;s 89-page <b>Medicare Marketing Machine</b>: the five parts, in order, that bring you clients from ads every month, not just in AEP.</p>
+        <p class="sub">For Medicare agents and agency owners who want to scale to $250K a year, or past it. This is <b>the exact playbook</b> we run for the agencies we&rsquo;re scaling right now.</p>
         <ul class="why">
-          <li><b>5</b><span>Parts that turn an ad into a client for life</span></li>
-          <li><b>$1.64</b><span>Per lead in a real account, shown on page 53</span></li>
-          <li><b>53</b><span>Clients from one phone call, no ads, page 75</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3.2 3.2L13 5"/></svg><span>The five-part machine that brings in clients every month, not just in AEP</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3.2 3.2L13 5"/></svg><span>The real ad account behind 3,459 leads at $1.64 each</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3.2 3.2L13 5"/></svg><span>How one phone call turned into 53 clients, with no ads at all</span></li>
         </ul>
         <div class="cta">
           <a class="btn" href="#optin" data-optin>Send Me The Free Playbook<i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h11M9 4l4 4-4 4"/></svg></i></a>
@@ -524,54 +521,6 @@ footer img{width:110px;height:auto}
   </div>
 </section>
 
-<section class="sec prob paper">
-  <div class="wrap p-grid">
-    <div class="rv">
-      <h2>You&rsquo;re Good At Selling Medicare. <span class="e">That&rsquo;s Not The Problem.</span></h2>
-      <p class="lead agit">Every month your calendar depends on a lead vendor, a referral or open enrollment, <b>your book grows on someone else&rsquo;s schedule.</b> And the leads you pay for, five other agents already called.</p>
-    </div>
-    <div class="rv">
-      <p class="symp-h">Sound familiar?</p>
-      <ul class="symp">
-        <li><span>01</span>Your calendar is full from October 15 to December 7. Then it goes quiet.</li>
-        <li><span>02</span>You&rsquo;re paying for live transfers, direct mail and shared leads, and closing a few of them.</li>
-        <li><span>03</span>You tried Facebook ads once, spent the money, and got nothing you could close.</li>
-        <li><span>04</span>Leads come in and go cold because nobody texts them in the first five minutes.</li>
-        <li><span>05</span>Referrals are your whole marketing plan.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="reframe dark">
-  <div class="wrap rv">
-    <h2>You Don&rsquo;t Have A Lead Problem. <span class="e">You Have A Machine Problem.</span></h2>
-    <p>Most agents only fix one part, usually the ads. Then they wonder why it doesn&rsquo;t work. This book builds all five, in order.</p>
-    <div class="eq" aria-label="Market plus Message plus Ads plus Funnel plus Backend equals Clients">
-      <span><small>01</small>Market</span><i>+</i><span><small>02</small>Message</span><i>+</i><span><small>03</small>Ads</span><i>+</i><span><small>04</small>Funnel</span><i>+</i><span><small>05</small>Backend</span><i>=</i><span class="res"><small style="color:#111">Every Month</small>Clients</span>
-    </div>
-  </div>
-</section>
-
-<section class="sec mech">
-  <div class="wrap">
-    <div class="m-top rv">
-      <div><p class="label">What&rsquo;s Inside</p><h2>The Medicare Marketing Machine, <span class="e">Written Down In Order.</span></h2></div>
-      <p class="lead">Read it once from front to back. Then keep it open while you set things up. Every step is in the order you do it, with real numbers from real accounts.</p>
-    </div>
-    <div class="m-grid">
-      <ol class="parts">
-        <li class="rv"><span class="n">01</span><div><h3>Market</h3><p>Who, exactly, you go after. The three groups almost nobody is calling, and how to pick one.</p></div><span class="pg">Page 13</span></li>
-        <li class="rv"><span class="n">02</span><div><h3>Message</h3><p>What makes the right person stop scrolling. The four kinds of hooks, and 20 you can test this week.</p></div><span class="pg">Page 22</span></li>
-        <li class="rv"><span class="n">03</span><div><h3>Ads</h3><p>How to set them up, read them and scale the winners, from a real account with 3,459 leads.</p></div><span class="pg">Page 36</span></li>
-        <li class="rv"><span class="n">04</span><div><h3>Funnel</h3><p>The pages they see after they click, and how to find the leak between the form and the call.</p></div><span class="pg">Page 55</span></li>
-        <li class="rv"><span class="n">05</span><div><h3>Backend</h3><p>The first five minutes, the follow-up and the cross-sell that turn one lead into a client for life.</p></div><span class="pg">Page 60</span></li>
-        <li class="rv bonus"><span class="n">+</span><div><h3>Local Market Domination <span class="e">No Ads Needed.</span></h3><p>How one phone call to a dental office turned into 53 clients in a year, and how to do the same in your town.</p></div><span class="pg">Page 75</span></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
 <section class="sec auth paper">
   <div class="wrap a-grid">
     <div class="a-photos rv">
@@ -592,13 +541,42 @@ footer img{width:110px;height:auto}
   </div>
 </section>
 
-<section class="close dark">
-  <div class="wrap rv">
-    <div class="mini" aria-hidden="true"><div class="book"><div class="back"></div><div class="pages"></div><div class="cover"><img src="assets/playbook-cover.webp" alt="" loading="lazy"></div></div></div>
-    <h2>Get The Roadmap To $250K A Year. <span class="e">And Past It.</span></h2>
-    <p class="lead">89 pages. Five parts. Every step in the order you do it. Free.</p>
-    <a class="btn" href="#optin" data-optin>Send Me The Free Playbook<i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h11M9 4l4 4-4 4"/></svg></i></a>
-    <p class="micro"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8.5l3.2 3.2L13 5"/></svg>Free. Sent straight to your inbox. Individual results vary.</p>
+<section class="sec prob ivory">
+  <div class="wrap p-grid">
+    <div class="rv">
+      <h2>You&rsquo;re Good At Selling Medicare. <span class="e">That&rsquo;s Not The Problem.</span></h2>
+      <p class="lead agit">Every month your calendar depends on a lead vendor, a referral or open enrollment, <b>your book grows on someone else&rsquo;s schedule.</b> And the leads you pay for, five other agents already called.</p>
+    </div>
+    <div class="rv">
+      <p class="symp-h">Sound familiar?</p>
+      <ul class="symp">
+        <li><span>01</span>Your calendar is full from October 15 to December 7. Then it goes quiet.</li>
+        <li><span>02</span>You&rsquo;re paying for live transfers, direct mail and shared leads, and closing a few of them.</li>
+        <li><span>03</span>You tried Facebook ads once, spent the money, and got nothing you could close.</li>
+        <li><span>04</span>Leads come in and go cold because nobody texts them in the first five minutes.</li>
+        <li><span>05</span>Referrals are your whole marketing plan.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec mech paper">
+  <div class="wrap">
+    <div class="m-top rv">
+      <div><p class="label">What&rsquo;s Inside</p><h2>The Medicare Marketing Machine, <span class="e">Written Down In Order.</span></h2></div>
+      <p class="lead">Read it once from front to back. Then keep it open while you set things up. Every step is in the order you do it, with real numbers from real accounts.</p>
+    </div>
+    <div class="m-grid">
+      <ol class="parts">
+        <li class="rv"><span class="n">01</span><div><h3>Market</h3><p>Who, exactly, you go after. The three groups almost nobody is calling, and how to pick one.</p></div><span class="pg">Page 13</span></li>
+        <li class="rv"><span class="n">02</span><div><h3>Message</h3><p>What makes the right person stop scrolling. The four kinds of hooks, and 20 you can test this week.</p></div><span class="pg">Page 22</span></li>
+        <li class="rv"><span class="n">03</span><div><h3>Ads</h3><p>How to set them up, read them and scale the winners, from a real account with 3,459 leads.</p></div><span class="pg">Page 36</span></li>
+        <li class="rv"><span class="n">04</span><div><h3>Funnel</h3><p>The pages they see after they click, and how to find the leak between the form and the call.</p></div><span class="pg">Page 55</span></li>
+        <li class="rv"><span class="n">05</span><div><h3>Backend</h3><p>The first five minutes, the follow-up and the cross-sell that turn one lead into a client for life.</p></div><span class="pg">Page 60</span></li>
+        <li class="rv bonus"><span class="n">+</span><div><h3>Local Market Domination <span class="e">No Ads Needed.</span></h3><p>How one phone call to a dental office turned into 53 clients in a year, and how to do the same in your town.</p></div><span class="pg">Page 75</span></li>
+      </ol>
+    </div>
+    <div class="rd-cta rv"><a class="btn" href="#optin" data-optin>Send Me The Free Playbook<i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h11M9 4l4 4-4 4"/></svg></i></a><p class="fine">Free. Sent straight to your inbox. Individual results vary.</p></div>
   </div>
 </section>
 

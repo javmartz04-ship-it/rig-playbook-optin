@@ -70,11 +70,9 @@ h2{font-size:clamp(34px,4.4vw,56px);text-wrap:balance}
 .hero h1 .e{display:block;font-size:1em;line-height:1.08;margin-top:6px;color:var(--gold);text-wrap:balance}
 .hero .sub{margin:20px 0 22px;max-width:560px;font-size:clamp(18px,1.45vw,21px);line-height:1.55;color:var(--on-d)}
 .hero .sub b{color:var(--white);font-weight:700}
-.why{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:600px;margin:0 0 30px;border-top:1px solid var(--line-d);border-bottom:1px solid var(--line-d)}
-.why li{padding:16px 18px 16px 0}
-.why li+li{padding-left:18px;border-left:1px solid var(--line-d)}
-.why b{display:block;font-size:clamp(26px,2.4vw,34px);font-weight:800;font-stretch:80%;line-height:1;color:var(--gold);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
-.why span{display:block;margin-top:7px;font-size:13.5px;line-height:1.35;color:var(--on-d)}
+.why{list-style:none;max-width:600px;margin:0 0 28px}
+.why li{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;padding:5px 0;font-size:17px;line-height:1.4;color:var(--white);font-weight:500}
+.why li svg{width:18px;height:18px;margin-top:3px;color:var(--gold)}
 .proof{display:flex;align-items:center;gap:18px;margin-top:24px;padding-top:22px;border-top:1px solid var(--line-d);max-width:560px}
 .faces{display:flex;flex:none}
 .faces img{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:50% 22%;border:2px solid var(--black);margin-left:-12px;background:#222}
@@ -293,10 +291,8 @@ footer img{width:110px;height:auto}
   .h-grid{grid-template-columns:1fr;gap:10px;text-align:center}
   .tag{margin-bottom:18px;font-size:10.5px;letter-spacing:.12em}
   .hero .sub{margin:16px auto 18px}
-  .why{margin:0 auto 22px;text-align:left}
-  .why li{padding:12px 10px 12px 0}
-  .why li+li{padding-left:10px}
-  .why span{font-size:12px}
+  .why{margin:0 auto 22px;text-align:left;max-width:340px}
+  .why li{font-size:15.5px;padding:4px 0}
   .hero .cta{display:flex;flex-direction:column;align-items:center}
   .micro{justify-content:center;text-align:left}
   .hero .micro{font-size:13px}
@@ -360,11 +356,11 @@ footer img{width:110px;height:auto}
       <div>
         <p class="tag"><em>Free</em>The Medicare Marketing Machine Playbook</p>
         <h1><span class="ln"><span class="call">Medicare Agents:</span></span><span class="ln"><span class="call">Want To Hit $250K A&nbsp;Year?</span></span><span class="ln"><span class="e">Start With This Free Playbook.</span></span></h1>
-        <p class="sub">Johnny Brock&rsquo;s 89-page <b>Medicare Marketing Machine</b>: the five parts, in order, that bring you clients from ads every month, not just in AEP.</p>
+        <p class="sub">For Medicare agents and agency owners who want to scale to $250K a year, or past it. This is <b>the exact playbook</b> we run for the agencies we&rsquo;re scaling right now.</p>
         <ul class="why">
-          <li><b>5</b><span>Parts that turn an ad into a client for life</span></li>
-          <li><b>$1.64</b><span>Per lead in a real account, shown on page 53</span></li>
-          <li><b>53</b><span>Clients from one phone call, no ads, page 75</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3.2 3.2L13 5"/></svg><span>The five-part machine that brings in clients every month, not just in AEP</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3.2 3.2L13 5"/></svg><span>The real ad account behind 3,459 leads at $1.64 each</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3.2 3.2L13 5"/></svg><span>How one phone call turned into 53 clients, with no ads at all</span></li>
         </ul>
         <div class="cta">
           <a class="btn" href="#optin" data-optin>Send Me The Free Playbook<i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h11M9 4l4 4-4 4"/></svg></i></a>
