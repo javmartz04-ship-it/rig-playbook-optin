@@ -32,8 +32,11 @@ def absolutize(t):
     t = t.replace('`assets/', '`' + BASE + 'assets/')
     return t
 
-def build(src, name):
+def build(src, name, swaps=()):
     html = (ROOT / src).read_text()
+    for a, b in swaps:
+        assert a in html, a
+        html = html.replace(a, b)
     for a, b in SLUGS.items():
         html = html.replace(a, b)
     # inline the shared stylesheet
@@ -96,3 +99,9 @@ def build(src, name):
 
 for src, name in PAGES.items():
     build(src, name)
+
+# The same thank-you page for the Book A Call VSL funnel (no Playbook mention, its own tracker name).
+build('thanks.html', 'booked-vsl', swaps=[
+    (' And keep the Playbook open, it&rsquo;s in your inbox.', ''),
+    ('data-funnel="Playbook Thank You"', 'data-funnel="Book A Call Thank You"'),
+])
