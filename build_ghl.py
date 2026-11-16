@@ -104,5 +104,6 @@ for src, name in PAGES.items():
 build('thanks.html', 'booked-vsl', swaps=[
     (' And keep the Playbook open, it&rsquo;s in your inbox.', ''),
     ('data-funnel="Playbook Thank You"', 'data-funnel="Book A Call Thank You"'),
+    ('ghl/meta.js" data-funnel="playbook"', 'ghl/meta.js" data-funnel="call"'),
     ('Watch Before Your Call &middot; 7 Min', 'Watch Before Your Call, 7 Min'),
 ])

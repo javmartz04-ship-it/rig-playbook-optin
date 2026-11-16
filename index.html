@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
 <script async src="https://javmartz04-ship-it.github.io/brandridge-tracker/t.js" data-client="johnny" data-name="Johnny" data-funnel="Playbook Opt-In"></script>
+<script async src="https://javmartz04-ship-it.github.io/rig-playbook-optin/ghl/meta.js" data-funnel="playbook"></script>
 <style>
 :root{
   --black:#000;--soft:#0b0b0b;--card:#141414;--line-d:rgba(255,255,255,.12);
@@ -677,6 +678,8 @@ form.addEventListener('submit', async e => {
   const btn = form.querySelector('.btn'); btn.disabled = true;
   const full = $('f_name').value.trim(), [first_name, ...rest] = full.split(/\s+/);
   const data = { full_name: full, first_name, last_name: rest.join(' '), email: $('f_email').value.trim(), phone: $('f_phone').value, source: CONFIG.SOURCE, page: location.href };
+  // Meta pixel: Lead + PlaybookOptIn, and the ids that let CAPI dedupe against it.
+  if (window.rigMeta) Object.assign(data, rigMeta.lead(data));
   if (CONFIG.WEBHOOK) {
     const sent = fetch(CONFIG.WEBHOOK, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).catch(() => {});
     await Promise.race([sent, new Promise(r => setTimeout(r, 2500))]);

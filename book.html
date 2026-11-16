@@ -12,6 +12,7 @@
 <link rel="preload" as="image" href="assets/johnny-steeple-color.webp">
 <link rel="stylesheet" href="pages.css?v=1">
 <script async src="https://javmartz04-ship-it.github.io/brandridge-tracker/t.js" data-client="johnny" data-name="Johnny" data-funnel="Playbook Booking"></script>
+<script async src="https://javmartz04-ship-it.github.io/rig-playbook-optin/ghl/meta.js" data-funnel="playbook"></script>
 <style>
 .call{display:grid;grid-template-columns:minmax(0,43fr) minmax(0,57fr);min-height:100svh}
 .call-l{position:sticky;top:0;height:100svh;overflow:hidden;background:#000;padding:clamp(24px,2.5vw,38px) clamp(28px,3.6vw,58px)}
@@ -85,7 +86,7 @@
   // (the calendar is shared with the book-a-call funnel, so its own redirect points elsewhere).
   addEventListener('message', function (e) {
     var d = e.data, name = Array.isArray(d) ? d[0] : (d && (d.type || d.event || d));
-    if (typeof name === 'string' && /booking-complete|appointment-booked/i.test(name)) location.href = THANKS;
+    if (typeof name === 'string' && /booking-complete|appointment-booked/i.test(name)) setTimeout(function () { location.href = THANKS; }, 600);  // meta.js fires Schedule first
   });
 })();
 </script>
