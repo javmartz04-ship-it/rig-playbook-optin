@@ -69,7 +69,13 @@
   var CALENDAR = 'm6f8GDD9TTsnJgnI4mP6';   // Johnny's booking calendar (same one as the book-a-call funnel), new 2026-11-16
   var THANKS = 'thanks.html';
   var f = document.createElement('iframe');
-  f.src = 'https://link.brockequities.com/widget/booking/' + CALENDAR;
+  // Sticky contact: pre-fill the calendar with what they typed on the form (saved by meta.js, 7 days).
+  var pre = '';
+  try { var c = JSON.parse(localStorage.getItem('rig_contact') || 'null');
+    if (c && Date.now() - c.t < 7 * 864e5) { var q = new URLSearchParams();
+      ['first_name', 'last_name', 'email', 'phone'].forEach(function (k) { if (c.v[k]) q.set(k, c.v[k]); });
+      if (q.toString()) pre = '?' + q.toString(); } } catch (e) {}
+  f.src = 'https://link.brockequities.com/widget/booking/' + CALENDAR + pre;
   f.id = CALENDAR + '_booking';
   f.title = 'Choose a time for your call';
   f.scrolling = 'no';

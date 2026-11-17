@@ -24,7 +24,7 @@
   var TIERS = ['Under $100K', '$100K To $250K', '$250K To $500K', '$500K To $1M', 'Over $1M'];   // survey options, in order
   var me = document.currentScript;
   var FUNNEL = (me && me.getAttribute('data-funnel')) || window.RIG_FUNNEL || 'call';
-  var AM_KEY = 'rig_meta_am', TIER_KEY = 'rig_meta_tier', DAY = 864e5;
+  var AM_KEY = 'rig_meta_am', TIER_KEY = 'rig_meta_tier', CONTACT_KEY = 'rig_contact', DAY = 864e5;
 
   function store(k, v) { try { localStorage.setItem(k, JSON.stringify({ v: v, t: Date.now() })); } catch (e) {} }
   function read(k, maxAge) {
@@ -106,6 +106,15 @@
     var out = attribution();
     out.event_id = id; out.fbp = cookie('_fbp'); out.fbc = fbc();
     out.meta_tier = tier; out.meta_qualified = tier >= 3 ? 'yes' : 'no';
+    // Sticky contact: the booking calendar pre-fills from this (see prefill()), so nobody types it twice.
+    // Kept on the visitor's own device only, 7 days.
+    var full = String(p.full_name || '').trim().split(/\s+/);
+    store(CONTACT_KEY, {
+      first_name: String(p.first_name || full[0] || '').trim(),
+      last_name: String(p.last_name || full.slice(1).join(' ') || '').trim(),
+      email: String(p.email || '').trim(),
+      phone: String(p.phone || '').replace(/\D/g, '').slice(-10)
+    });
     function fire(am) {
       if (am && am.em) { store(AM_KEY, am); fbq('init', PIXEL, am); }
       if (FUNNEL === 'call') {
