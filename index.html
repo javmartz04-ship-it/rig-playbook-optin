@@ -678,7 +678,7 @@ form.addEventListener('submit', async e => {
   const btn = form.querySelector('.btn'); btn.disabled = true;
   const full = $('f_name').value.trim(), [first_name, ...rest] = full.split(/\s+/);
   const data = { full_name: full, first_name, last_name: rest.join(' '), email: $('f_email').value.trim(), phone: $('f_phone').value, source: CONFIG.SOURCE, page: location.href };
-  // Meta pixel: Lead + PlaybookOptIn, and the ids that let CAPI dedupe against it.
+  // Meta pixel: Lead (value 1 = Playbook), and the ids that let CAPI dedupe against it.
   if (window.rigMeta) Object.assign(data, rigMeta.lead(data));
   if (CONFIG.WEBHOOK) {
     const sent = fetch(CONFIG.WEBHOOK, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).catch(() => {});

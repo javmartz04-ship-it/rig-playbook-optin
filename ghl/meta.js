@@ -3,24 +3,26 @@
      <script async src="https://javmartz04-ship-it.github.io/rig-playbook-optin/ghl/meta.js" data-funnel="call|playbook"></script>
 
    Dataset "Insurance Agent Webinar Pixel" 2168290846910321 sits under Meta's CORE SETUP (insurance category):
-   Meta drops custom parameters and URL paths. So the funnel and the qualification live in the EVENT NAME,
-   never in a parameter or a URL rule. Custom conversions are built on these event names.
+   Meta drops custom parameters, URL paths AND custom events (verified in Test Events 2026-11-16: trackCustom
+   never arrived). Only standard events plus value/currency get through. So the funnel and the qualification are
+   encoded in the standard event type and a small VALUE CODE, and the custom conversions are rules on those.
 
-   Events (browser):
+   Events (browser), value in USD as a code, not money:
      every page ............ PageView
-     CALL survey submit .... Lead + CallApplication (+ CallQualifiedApplication when revenue >= $250K)
-     CALL booking done ..... Schedule + CallBooked (+ CallQualifiedBooked when the applicant was qualified)
-     PLAYBOOK opt-in ....... Lead + PlaybookOptIn
-     PLAYBOOK booking done . Schedule + PlaybookBooked
+     CALL survey submit .... SubmitApplication, value = revenue tier 1-5
+                             (1 Under $100K, 2 $100K-$250K, 3 $250K-$500K, 4 $500K-$1M, 5 Over $1M; qualified = value >= 3)
+     CALL booking done ..... Schedule, value = 10 + tier (11-15; qualified booked = value >= 13)
+     PLAYBOOK opt-in ....... Lead, value = 1   (old webinar Leads carry no value)
+     PLAYBOOK booking done . Schedule, value = 1
    Lead / booking events fire only from a real submit or the calendar's booking-complete message, never on page load.
    Every event carries an eventID; the same id goes to the GHL webhook (event_id, fbp, fbc) for CAPI dedup. */
 (function () {
   if (window.rigMeta) return;
   var PIXEL = '2168290846910321';
-  var QUALIFIED = ['$250K To $500K', '$500K To $1M', 'Over $1M'];
+  var TIERS = ['Under $100K', '$100K To $250K', '$250K To $500K', '$500K To $1M', 'Over $1M'];   // survey options, in order
   var me = document.currentScript;
   var FUNNEL = (me && me.getAttribute('data-funnel')) || window.RIG_FUNNEL || 'call';
-  var AM_KEY = 'rig_meta_am', Q_KEY = 'rig_meta_q', DAY = 864e5;
+  var AM_KEY = 'rig_meta_am', TIER_KEY = 'rig_meta_tier', DAY = 864e5;
 
   function store(k, v) { try { localStorage.setItem(k, JSON.stringify({ v: v, t: Date.now() })); } catch (e) {} }
   function read(k, maxAge) {
@@ -73,17 +75,15 @@
   function lead(p) {
     p = p || {};
     var id = eid();
-    var qualified = FUNNEL === 'call' && QUALIFIED.indexOf(p.annual_revenue) > -1;
-    var out = { event_id: id, fbp: cookie('_fbp'), fbc: fbc(), meta_qualified: qualified ? 'yes' : 'no' };
+    var tier = TIERS.indexOf(p.annual_revenue) + 1;            // 0 = not answered
+    var out = { event_id: id, fbp: cookie('_fbp'), fbc: fbc(), meta_tier: tier, meta_qualified: tier >= 3 ? 'yes' : 'no' };
     function fire(am) {
       if (am && am.em) { store(AM_KEY, am); fbq('init', PIXEL, am); }
-      fbq('track', 'Lead', {}, { eventID: id });
       if (FUNNEL === 'call') {
-        fbq('trackCustom', 'CallApplication', {}, { eventID: id + '.app' });
-        if (qualified) fbq('trackCustom', 'CallQualifiedApplication', {}, { eventID: id + '.qual' });
-        store(Q_KEY, qualified);
+        store(TIER_KEY, tier);
+        fbq('track', 'SubmitApplication', { value: tier || 1, currency: 'USD' }, { eventID: id });
       } else {
-        fbq('trackCustom', 'PlaybookOptIn', {}, { eventID: id + '.optin' });
+        fbq('track', 'Lead', { value: 1, currency: 'USD' }, { eventID: id });
       }
     }
     // Hashing is fast; never let it hold the event back more than 400 ms.
@@ -97,14 +97,8 @@
   var bookedOnce = false;
   function booked() {
     if (bookedOnce) return; bookedOnce = true;
-    var id = eid();
-    fbq('track', 'Schedule', {}, { eventID: id });
-    if (FUNNEL === 'call') {
-      fbq('trackCustom', 'CallBooked', {}, { eventID: id + '.booked' });
-      if (read(Q_KEY, 30 * DAY)) fbq('trackCustom', 'CallQualifiedBooked', {}, { eventID: id + '.qbooked' });
-    } else {
-      fbq('trackCustom', 'PlaybookBooked', {}, { eventID: id + '.booked' });
-    }
+    var id = eid(), v = FUNNEL === 'call' ? 10 + (read(TIER_KEY, 30 * DAY) || 0) : 1;
+    fbq('track', 'Schedule', { value: v, currency: 'USD' }, { eventID: id });
   }
   addEventListener('message', function (e) {
     var d = e.data, name = Array.isArray(d) ? d[0] : (d && (d.type || d.event || d));
