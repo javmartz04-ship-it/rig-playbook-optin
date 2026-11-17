@@ -15,7 +15,9 @@
      PLAYBOOK opt-in ....... Lead, value = 1   (old webinar Leads carry no value)
      PLAYBOOK booking done . Schedule, value = 1
    Lead / booking events fire only from a real submit or the calendar's booking-complete message, never on page load.
-   Every event carries an eventID; the same id goes to the GHL webhook (event_id, fbp, fbc) for CAPI dedup. */
+   Every event carries an eventID; the same id goes to the GHL webhook (event_id, fbp, fbc) for CAPI dedup.
+   The webhook payload also carries the ad attribution (utm_*, utm_id, fb_adset_id, fb_ad_id, fb_placement, fb_site,
+   fbclid, landing_page; first_* = first touch), captured on the landing page and kept 90 days. */
 (function () {
   if (window.rigMeta) return;
   var PIXEL = '2168290846910321';
@@ -48,6 +50,31 @@
     return id ? 'fb.1.' + Date.now() + '.' + id : '';
   }
 
+  /* Attribution. The ad's URL parameters are only on the landing page; the form can be several pages later.
+     Saved on landing (90 days): LAST touch overwrites every time a tagged URL is opened, FIRST touch is kept once.
+     Both go to GHL with the lead (lead() below). */
+  var ATTR_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id',
+                   'fb_adset_id', 'fb_ad_id', 'fb_placement', 'fb_site', 'fbclid'];
+  var LAST_KEY = 'rig_attr_last', FIRST_KEY = 'rig_attr_first';
+  (function captureAttribution() {
+    var q = new URLSearchParams(location.search), a = {}, any = false;
+    ATTR_KEYS.forEach(function (k) { var v = q.get(k); if (v) { a[k] = v.slice(0, 200); any = true; } });
+    if (!any) return;
+    a.landing_page = location.origin + location.pathname;
+    a.landed_at = new Date().toISOString();
+    store(LAST_KEY, a);
+    if (!read(FIRST_KEY, 90 * DAY)) store(FIRST_KEY, a);
+  })();
+  function attribution() {
+    var last = read(LAST_KEY, 90 * DAY) || {}, first = read(FIRST_KEY, 90 * DAY) || {}, out = {};
+    ATTR_KEYS.concat(['landing_page', 'landed_at']).forEach(function (k) {
+      out[k] = last[k] || '';
+      out['first_' + k] = first[k] || '';
+    });
+    out.form_page = location.origin + location.pathname;
+    return out;
+  }
+
   // SHA-256 hex, so nothing raw sits in localStorage. Meta accepts pre-hashed values.
   function sha(s) {
     if (!s || !window.crypto || !crypto.subtle) return Promise.resolve('');
@@ -76,7 +103,9 @@
     p = p || {};
     var id = eid();
     var tier = TIERS.indexOf(p.annual_revenue) + 1;            // 0 = not answered
-    var out = { event_id: id, fbp: cookie('_fbp'), fbc: fbc(), meta_tier: tier, meta_qualified: tier >= 3 ? 'yes' : 'no' };
+    var out = attribution();
+    out.event_id = id; out.fbp = cookie('_fbp'); out.fbc = fbc();
+    out.meta_tier = tier; out.meta_qualified = tier >= 3 ? 'yes' : 'no';
     function fire(am) {
       if (am && am.em) { store(AM_KEY, am); fbq('init', PIXEL, am); }
       if (FUNNEL === 'call') {
