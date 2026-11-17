@@ -66,17 +66,17 @@
 </main>
 <script>
 (function () {
-  var CALENDAR = 'Jum4R9jklVUVFgGsNbyQ';   // Medicare Agency Growth Session (same calendar as the book-a-call funnel)
+  var CALENDAR = 'm6f8GDD9TTsnJgnI4mP6';   // Johnny's booking calendar (same one as the book-a-call funnel), new 2026-11-16
   var THANKS = 'thanks.html';
   var f = document.createElement('iframe');
-  f.src = 'https://link.realinsurancecrm.com/widget/booking/' + CALENDAR;
+  f.src = 'https://link.brockequities.com/widget/booking/' + CALENDAR;
   f.id = CALENDAR + '_booking';
   f.title = 'Choose a time for your call';
   f.scrolling = 'no';
   f.addEventListener('load', function () { document.getElementById('cal').classList.add('on'); });
   document.getElementById('cal').appendChild(f);
   var s = document.createElement('script');
-  s.src = 'https://link.realinsurancecrm.com/js/form_embed.js';
+  s.src = 'https://link.brockequities.com/js/form_embed.js';
   s.async = true;
   document.body.appendChild(s);
   // Remember that they got this far, so the thank-you page opens for them.
